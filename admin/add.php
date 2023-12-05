@@ -19,18 +19,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $image = $_FILES['image']['name'];
         move_uploaded_file($_FILES['image']['tmp_name'],$file);
 
-        // $stmt =  $pdo->prepare("INSERT INTO posts (tilte,content,image) VALUES (:title,:content,:image) ");
-        $stmt = $pdo->prepare("INSERT INTO posts (title, content, image,author_id) VALUES (:title, :content, :image,:author_id)");
+           $stmt = $pdo->prepare("INSERT INTO posts (title, content, image,author_id) VALUES (:title, :content, :image,:author_id)");
 
         $result =  $stmt->execute(
             array(':title'=>$title,':content'=>$content,':image'=>$image,':author_id'=>$_SESSION['user_id'])
         );
-        // if($result){
-        //     echo "<script>alert('Successfully added ')</script>";
-        // }
         if($result) {
             echo "<script>alert('Successfully added'); window.location.href='index.php'</script>";
-            // header("Location: index.php"); // Redirect after successful addition
         }
     }
 }
